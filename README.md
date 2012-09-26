@@ -1,7 +1,5 @@
-# Yii Utility Files
+# Yii Utility Files #
 
-- Yii Base class
+### Yii::importDirectory ###
 
-- components
-
-- etc...
+A import method that imports a directory and its all sub-directories, also I add a better import method that merge official method and importDirectory method.
