@@ -7,8 +7,8 @@ class Yii extends YiiBase
      * the alias format can be "application.models" or "application.models.*"
      * 
      * @param string $alias the directory alias
-     * @return boolean if the path of directory can be found, the method will
-     * return false, otherwise it will return true
+     * @return string the directory that this alias refers to
+     * @throws CException if the alias is invalid
      */
     public static function importDirectory($alias)
     {
@@ -17,7 +17,7 @@ class Yii extends YiiBase
         }
         $path = self::getPathOfAlias($alias);
         if(is_dir($path) === false) {
-            return false;
+            throw new CException("the alias {$alias} is invalid");
         }
         parent::import($alias.'.*');
         $dir = opendir($path);
@@ -29,11 +29,11 @@ class Yii extends YiiBase
                 self::importDirectory($alias.'.'.$file);
             }
         }
-        return true;
+        return $path;
     }
     
     /**
-     * a better import method, it will auto call importDirectory if the alias is
+     * a better import method that auto calls importDirectory if the alias is
      * a directory
      * NOTE: if you don't like it and want to use the official import method, you
      * can just remove it or rename it like "importAll"
@@ -41,6 +41,7 @@ class Yii extends YiiBase
      * @param string $alias
      * @param boolean $forceInclude
      * @return string the class name or the directory that this alias refers to
+     * @throws CException if the alias is invalid
      */
     public static function import($alias,$forceInclude=false)
     {
@@ -53,7 +54,7 @@ class Yii extends YiiBase
         
         if(!$isClass) {
             return self::importDirectory($alias);
-		}
+        }
         return parent::import($alias, $forceInclude);
     }
 }
