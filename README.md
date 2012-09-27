@@ -25,8 +25,8 @@ Note: the directory of namespace must be lowercase
 
 import the class
 
-   Yii::import('application.compoentns.*');
+    Yii::import('application.compoentns.*');
 
 use the class
 
-   $component = new \Test\Component;
+    $component = new \Test\Component;
