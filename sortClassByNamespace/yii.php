@@ -5,17 +5,17 @@ class Yii extends YiiBase
     private static $_includePaths=array();
 
     public static function import($alias,$forceInclude=false)
-	{
-		if(($pos=strrpos($alias,'.'))===false) {
-			return parent::import($alias, $forceInclude);
-		}
+    {
+        if(($pos=strrpos($alias,'.'))===false) {
+            return parent::import($alias, $forceInclude);
+        }
 
-		$className=(string)substr($alias,$pos+1);
-		$isClass=$className!=='*';
+        $className=(string)substr($alias,$pos+1);
+        $isClass=$className!=='*';
 
-		if(($path=self::getPathOfAlias($alias))!==false && !$isClass) {
+        if(($path=self::getPathOfAlias($alias))!==false && !$isClass) {
             array_unshift(self::$_includePaths,$path);
-		}
+        }
         
         return parent::import($alias, $forceInclude);
 	}
